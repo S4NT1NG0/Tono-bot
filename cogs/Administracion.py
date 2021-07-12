@@ -4,10 +4,6 @@ from discord.ext import commands
 class Administracion(commands.Cog):
     def __init__(self, client):
         self.client = client
-    
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("TonoBot en linea")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -17,18 +13,19 @@ class Administracion(commands.Cog):
     async def on_member_remove(self, member):
         print(f'{member} Nos abandono D:')
 
-    @commands.command()
+    @commands.command(aliases = ['Kick'])
     @commands.has_permissions(administrator=True)
     async def kick(self, ctx, member:discord.Member, *, reason=None):
         await member.kick(reason=reason)
+        await ctx.send(f'E kickeado a: {member.mention}')
 
-    @commands.command()
+    @commands.command(aliases = ['Ban'])
     @commands.has_permissions(administrator=True)
     async def ban(self, ctx, member:discord.Member, *, reason=None):
         await member.ban(reason=reason)
         await ctx.send(f'E baneado a: {member.mention}')
 
-    @commands.command()
+    @commands.command(aliases = ['Unban'])
     @commands.has_permissions(administrator=True)
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
@@ -42,7 +39,7 @@ class Administracion(commands.Cog):
                 await ctx.send(f'Usuario {user.mention} fue desbaneado')
                 return
 
-    @commands.command()
+    @commands.command(aliases = ['Vaciar'])
     @commands.has_permissions(administrator=True)
     async def vaciar(self, ctx, amount=5):
         await ctx.channel.purge(limit=amount)

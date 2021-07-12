@@ -6,17 +6,17 @@ class Diversion(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases = ['lag', 'check'])
+    @commands.command(aliases = ['Ping'])
     async def ping(self, ctx):
         await ctx.send(f'{round(commands.bot.latency * 1000)}ms')
 
-    @commands.command(aliases = ['B8', 'Bola8'])
+    @commands.command(aliases = ['B8', 'Bola8', 'b8', 'bola8'])
     async def  _Bola8(self, ctx, *, question):
        respuestas = [
            'No', 'Puede ser', 'Las estrellas dicen que no',
             'Lo dudo', 'Definitivamente', 'Parece que si',
             'Todo apunta a que si', 'Consentrate y pregunta denuevo',
-           'Yo pienso que no..', 'Definitivamente.. no.', 'Nunca'
+           'Yo pienso que no..', 'Definitivamente no.', 'Nunca'
             ]
     
        await ctx.send(f'```Pregunta: {question}\nRespuesta: {random.choice(respuestas)}```')
@@ -32,9 +32,9 @@ class Diversion(commands.Cog):
             'https://tenor.com/view/anime-punch-mad-angry-gif-15580060'
         ]
 
-        await ctx.send(f'{ctx.author.name} Golpeo a {member}\n{random.choice(gif_list)}')
+        await ctx.send(f'{ctx.author.name} Golpeo a {member.mention}\n{random.choice(gif_list)}')
 
-    @commands.command(alias = ['Masacrar'])
+    @commands.command(alias = ['Masacrar', 'Matar'])
     async def matar(self, ctx, *, member:discord.Member):
         kill_gifs = [
             'https://tenor.com/view/rifle-shooting-slow-motion-gif-20582439',
@@ -44,7 +44,7 @@ class Diversion(commands.Cog):
             'https://tenor.com/view/id-invaded-gun-anime-shoot-kill-gif-16663051'
             ]
 
-        await ctx.send(f'{ctx.author.name} a matado a {member} D:\n{random.choice(kill_gifs)}')
+        await ctx.send(f'{ctx.author.name} a matado a {member.mention} D:\n{random.choice(kill_gifs)}')
 
 def setup(client):
     client.add_cog(Diversion(client))

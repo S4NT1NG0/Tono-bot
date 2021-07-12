@@ -11,10 +11,17 @@ import random
 import os
 from discord.ext import tasks
 from itertools import cycle
+import waifus
 
 client = commands.Bot(command_prefix = 't!')
-status = cycle(['Escuchando a la gente.. ( t!ayuda ) para recibir ayuda XD', 'El mejor bot de la historia de la humanidad.. ( t!ayuda ) por si quieres ayuda', 'El bot que siempre te escucha! :D  ( t!ayuda ) si gustas ser auxiliado'])
-
+estado = [
+    'Escuchando a la gente.. ( t!ayuda ) para recibir ayuda XD',
+    'El mejor bot de la historia de la humanidad.. ( t!ayuda ) por si quieres ayuda',
+    'El bot que siempre te escucha! :D  ( t!ayuda ) si gustas ser auxiliado',
+    'Escribe ( t!ayuda ) para no ver al mundo arder',
+    'El unico bot que te ve mientras duermes 0.0 ( t!ayuda )'
+]
+status = cycle(estado)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -25,8 +32,12 @@ async def on_ready():
     change.start()
     print("TonoBot en linea")
 
-@tasks.loop(seconds=60)
+@tasks.loop(seconds=30)
 async def change():
     await client.change_presence(activity=discord.Game(next(status)))
+
+@client.command()
+async def waifu(ctx):
+    await ctx.send(f'Aqui tienes tu waifu: {random.choice(waifus.waifu_list)}')
 
 client.run('ODYyNzg4Mzc1NTYyOTQ0NTMz.YOdcSg.swZ0wiIj0MSUfAVEbg7PLcLgmmE')
